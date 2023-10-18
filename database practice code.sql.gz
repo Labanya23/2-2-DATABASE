@@ -1,0 +1,68 @@
+-- Customer Table
+CREATE TABLE Customer (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(255) NOT NULL,
+    cust_gender CHAR(1),
+    cust_age INT,
+    cust_contact_num VARCHAR(15) NOT NULL,
+    cust_address VARCHAR(255)
+);
+
+-- Prescription Table
+CREATE TABLE Prescription (
+    prescription_id INT PRIMARY KEY,
+    cust_id INT,
+    p_name VARCHAR(255) NOT NULL,
+    medicine_name VARCHAR(255) NOT NULL,
+    quantity INT,
+    prescription_date DATE,
+    FOREIGN KEY (cust_id) REFERENCES Customer(cust_id)
+);
+
+-- Employee Table
+CREATE TABLE Employee (
+    e_id INT PRIMARY KEY,
+    e_name VARCHAR(255) NOT NULL,
+    e_shift VARCHAR(50),
+    job_title VARCHAR(255)
+);
+
+-- Medicine Table
+CREATE TABLE Medicine (
+    m_id INT PRIMARY KEY,
+    m_name VARCHAR(255) NOT NULL,
+    m_category VARCHAR(255),
+    m_quantity INT,
+    m_price DECIMAL(10, 2),
+    expiry_date DATE,
+    manufacturer_id INT,
+    FOREIGN KEY (manufacturer_id) REFERENCES Manufacturer(company_id)
+);
+
+-- Counter Table
+CREATE TABLE Counter (
+    counter_no INT PRIMARY KEY,
+    seller_id INT,
+    seller_name VARCHAR(255) NOT NULL,
+    seller_contact_num VARCHAR(15) NOT NULL,
+    employee_id INT,
+    phar_id INT,
+    FOREIGN KEY (employee_id) REFERENCES Employee(e_id),
+    FOREIGN KEY (phar_id) REFERENCES Shop(phar_id)
+);
+
+-- Shop Table
+CREATE TABLE Shop (
+    phar_id INT PRIMARY KEY,
+    phar_name VARCHAR(255) NOT NULL,
+    phar_address VARCHAR(255),
+    phar_contact_num VARCHAR(15) NOT NULL,
+);
+
+-- Manufacturer Table
+CREATE TABLE Manufacturer (
+    company_id INT PRIMARY KEY,
+    ma_name VARCHAR(255) NOT NULL,
+    ma_address VARCHAR(255),
+    ma_contact_num VARCHAR(15) NOT NULL
+);
